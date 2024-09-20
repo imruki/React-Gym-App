@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react';
 import Introduction from './components/Introduction'
 import Generator from './components/Generator'
 import Workout from './components/Workout'
@@ -11,15 +11,22 @@ function App() {
   const [muscles, setMuscles] = useState([])
   const [goal, setGoal] = useState("strength_power")
 
+  const workoutRef = useRef(null);
+
   function updateWorkout(){
     if (muscles.length < 1) {
       return
     }
     let newWorkout = generateWorkout({type, muscles, goal})
     setWorkout(newWorkout)
-    
-    window.location.href = "#workout"
   }
+
+  // Scroll to the workout section once it's generated and rendered
+  useEffect(() => {
+    if (workout && workoutRef.current) {
+      workoutRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [workout]);
 
   return (
     <main className='min-h-screen flex flex-col bg-gradient-to-r 
@@ -34,7 +41,11 @@ function App() {
       setGoal = {setGoal}
       updateWorkout = {updateWorkout}
       />
-      {workout && (<Workout workout={workout}/>)}
+      {workout && (
+        <div id="workout" ref={workoutRef}>
+          <Workout workout={workout} />
+      </div>
+      )}
     </main>
   )
 }
