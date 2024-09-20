@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import SectionWrapper from './SectionWrapper'
 import {SCHEMES, WORKOUTS} from '../utils/workouts'
 import Button from './Button'
-import { generateWorkout } from '../utils/functions'
+
 function Header(props){
     const {index, title, description} = props
     return (
@@ -45,8 +45,8 @@ export default function Generator(props) {
     }
 
     return (
-        <SectionWrapper id={"generate"} header={"generate your workout"} title={["it\'s", "Huge", "o\'clock"]}> 
-            <Header index={"01"} title={"Pick your poison"} description={"Select the workout you wish to endure."}/>
+        <SectionWrapper id={"generate"} header={"generate your workout"} title={["It\'s", "Time", "to Workout"]}> 
+            <Header index={"01"} title={"Choose your workout"} description={"Select the workout type you'd like to do."}/>
             <div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
                 {Object.keys(WORKOUTS).map((workoutType, workoutIndex) => {
                     return (
@@ -56,7 +56,7 @@ export default function Generator(props) {
                     )
                 })}
             </div>
-            <Header index={"02"} title={"Lock on targets"} description={"Select the muscles judged for annihilation."}/>
+            <Header index={"02"} title={"Focus on muscles"} description={"Select the muscles you want to target."}/>
             <div className='bg-slate-950 border border-solid border-blue-400 rounded-l flex flex-col'>
                 <button onClick={toggleModal} className='relative p-3 flex items-center justify-center'>
                     <p className='capitalize'>{muscles.length === 0 ? "Select muscle groups" : muscles.join(" ")}</p>
@@ -75,7 +75,7 @@ export default function Generator(props) {
                 )}
             </div>
 
-            <Header index={"03"} title={"Become Juggernaut"} description={"Select your ultimate objectif."}/>
+            <Header index={"03"} title={"Set your goal"} description={"Select your ultimate objective."}/>
             <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
                 {Object.keys(SCHEMES).map((scheme, schemeIndex) => {
                     return (
@@ -85,8 +85,14 @@ export default function Generator(props) {
                     )
                 })}
             </div>
+            <div className="mb-8 flex flex-col items-center justify-center">
+                <Button func={updateWorkout} text='Generate Workout'/>
 
-            <Button func={updateWorkout} text='Generate Workout'/>
+
+            </div>
+            
+
+
         </SectionWrapper>
     )
 }
